@@ -1,0 +1,697 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block breadcrumb %}About{% endblock %}
+
+{% block content %}
+<style>
+    /* Global variables & custom styling for Sashka Matka */
+    :root {
+        --color-gold: #d4af37;
+        --color-green: #5D8A67;
+        --color-bg-dark: #121212;
+        --color-text-muted: #b0b0b0;
+        --card-border: rgba(212, 175, 55, 0.15);
+        --card-bg: rgba(255, 255, 255, 0.03);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes scaleIn {
+        from {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    /* Hero Section */
+    .about-hero {
+        position: relative;
+        min-height: 25vh;
+        padding: 3rem 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(93, 138, 103, 0.05) 100%);
+    }
+
+    .hero-content {
+        text-align: center;
+        z-index: 2;
+    }
+
+    .hero-title {
+        font-family: var(--font-display);
+        font-size: 3.5rem;
+        font-weight: 700;
+        line-height: 1.1;
+        color: #ffffff;
+        animation: fadeInUp 0.8s ease-out;
+        margin-bottom: 0;
+    }
+
+    .hero-divider {
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(90deg, var(--color-gold), var(--color-green));
+        margin: 2rem auto 0;
+        animation: fadeInUp 0.8s ease-out 0.2s forwards;
+        opacity: 0;
+    }
+
+    /* Common Section Header */
+    .section-header {
+        text-align: center;
+        margin-bottom: 4rem;
+    }
+
+    .section-label {
+        display: inline-block;
+        font-size: 0.8rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--color-gold);
+        margin-bottom: 1rem;
+        animation: fadeInUp 0.8s ease-out;
+    }
+
+    .section-title {
+        font-family: var(--font-display);
+        font-size: 3rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 0;
+        animation: fadeInUp 0.8s ease-out 0.2s forwards;
+        opacity: 0;
+    }
+
+    .text-gradient {
+        background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-green) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* Full-Width Story Section with about.png Background Image */
+    .story-section-full-width {
+        position: relative;
+        width: 100%;
+        padding: 8rem 0;
+        background: 
+            linear-gradient(180deg, rgba(18, 18, 18, 0.9) 0%, rgba(18, 18, 18, 0.8) 50%, rgba(18, 18, 18, 0.95) 100%),
+            url("{% static 'tea_shop/images/about.png' %}") center/cover no-repeat fixed;
+        background-color: #161616; /* Fallback background color */
+        border-top: 1px solid rgba(212, 175, 55, 0.1);
+        border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        overflow: hidden;
+    }
+
+    .story-content {
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+        animation: fadeInUp 0.8s ease-out 0.4s forwards;
+        opacity: 0;
+    }
+
+    .story-intro {
+        font-size: 1.35rem;
+        font-weight: 300;
+        color: #ffffff;
+        margin-bottom: 2rem;
+        line-height: 1.8;
+        text-align: center;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .story-text {
+        font-size: 1.1rem;
+        font-weight: 300;
+        color: #e0e0e0;
+        margin-bottom: 1.5rem;
+        line-height: 1.8;
+        text-align: center;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Vision Section */
+    .vision-section {
+        padding: 6rem 0;
+    }
+
+    .vision-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        margin-top: 3rem;
+    }
+
+    .vision-card {
+        background: var(--card-bg);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--card-border);
+        border-radius: 1.25rem;
+        padding: 2rem 1.5rem;
+        text-align: center;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        position: relative;
+        overflow: hidden;
+        animation: scaleIn 0.6s ease-out forwards;
+        opacity: 0;
+    }
+
+    .vision-card:nth-child(1) { animation-delay: 0.1s; }
+    .vision-card:nth-child(2) { animation-delay: 0.15s; }
+    .vision-card:nth-child(3) { animation-delay: 0.2s; }
+    .vision-card:nth-child(4) { animation-delay: 0.25s; }
+    .vision-card:nth-child(5) { animation-delay: 0.3s; }
+    .vision-card:nth-child(6) { animation-delay: 0.35s; }
+
+    .vision-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--color-gold), transparent);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .vision-card:hover::before {
+        opacity: 1;
+    }
+
+    .vision-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--color-gold);
+        box-shadow: 0 15px 30px rgba(212, 175, 55, 0.08);
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .vision-icon-wrapper {
+        width: 50px;
+        height: 50px;
+        margin: 0 auto 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(212, 175, 55, 0.1);
+        border-radius: 50%;
+        transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .vision-card:hover .vision-icon-wrapper {
+        transform: scale(1.1);
+        background: rgba(212, 175, 55, 0.2);
+    }
+
+    .vision-icon-svg {
+        width: 24px;
+        height: 24px;
+        fill: var(--color-gold);
+    }
+
+    .vision-title {
+        font-family: var(--font-display);
+        font-size: 1.15rem;
+        color: #ffffff;
+        font-weight: 600;
+        margin-bottom: 0;
+    }
+
+    /* Mission Section */
+    .mission-section {
+        padding: 5rem 0;
+        background: linear-gradient(180deg, rgba(212, 175, 55, 0.02) 0%, transparent 100%);
+    }
+
+    .mission-single-line {
+        max-width: 1000px;
+        margin: 0 auto;
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0.01) 0%, rgba(255, 255, 255, 0.04) 50%, rgba(255, 255, 255, 0.01) 100%);
+        border-top: 1px solid rgba(212, 175, 55, 0.15);
+        border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+        padding: 2.5rem 2rem;
+        text-align: center;
+        animation: scaleIn 0.8s ease-out;
+    }
+
+    .mission-text-line {
+        font-size: 1.35rem;
+        font-weight: 300;
+        color: #e0e0e0;
+        line-height: 1.6;
+        margin: 0;
+        letter-spacing: 0.02em;
+    }
+
+    /* Promise Section */
+    .promise-section {
+        padding: 6rem 0;
+    }
+
+    .promise-layout {
+        position: relative;
+        display: flex;
+        gap: 1.5rem;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        max-width: 1400px;
+        margin: 0 auto 3rem;
+    }
+
+    .promise-row {
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    .promise-card {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background: var(--card-bg);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(212, 175, 55, 0.15);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        cursor: pointer;
+        position: relative;
+        animation: scaleIn 0.6s ease-out forwards;
+        opacity: 0;
+    }
+
+    .promise-card:nth-child(1) { animation-delay: 0.1s; }
+    .promise-card:nth-child(2) { animation-delay: 0.15s; }
+    .promise-card:nth-child(3) { animation-delay: 0.2s; }
+    .promise-card:nth-child(4) { animation-delay: 0.25s; }
+    .promise-card:nth-child(5) { animation-delay: 0.3s; }
+    .promise-card:nth-child(6) { animation-delay: 0.35s; }
+    .promise-card:nth-child(7) { animation-delay: 0.4s; }
+
+    .promise-card:hover {
+        transform: scale(1.1);
+        border-color: var(--color-gold);
+        background: rgba(212, 175, 55, 0.08);
+        box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15);
+    }
+
+    .promise-icon-svg {
+        width: 24px;
+        height: 24px;
+        fill: var(--color-gold);
+    }
+
+    .promise-text {
+        font-size: 0.85rem;
+        color: #d0d0d0;
+        font-weight: 500;
+        text-align: center;
+        letter-spacing: 0.03em;
+        margin: 0;
+    }
+
+    .promise-center-text {
+        text-align: center;
+        color: var(--color-text-muted);
+        font-size: 1rem;
+        line-height: 1.8;
+        font-weight: 300;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    /* Capture the Moment Section */
+    .capture-section {
+        padding: 6rem 0;
+        background: linear-gradient(180deg, transparent 0%, rgba(93, 138, 103, 0.03) 100%);
+    }
+
+    .capture-card-wide {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: var(--card-bg);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(212, 175, 55, 0.15);
+        border-radius: 2rem;
+        padding: 4rem 3rem;
+        text-align: center;
+        animation: scaleIn 0.8s ease-out forwards;
+        opacity: 0;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+    }
+
+    .capture-intro {
+        font-size: 1.25rem;
+        font-weight: 300;
+        color: #e0e0e0;
+        margin-bottom: 3.5rem;
+        line-height: 1.8;
+    }
+
+    .capture-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+
+    .capture-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.25rem;
+        padding: 2.5rem 2rem;
+        border-radius: 1.5rem;
+        background: rgba(212, 175, 55, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.03);
+        transition: all 0.3s ease;
+        animation: scaleIn 0.6s ease-out forwards;
+        opacity: 0;
+    }
+
+    .capture-item:nth-child(1) { animation-delay: 0.2s; }
+    .capture-item:nth-child(2) { animation-delay: 0.3s; }
+    .capture-item:nth-child(3) { animation-delay: 0.4s; }
+
+    .capture-item:hover {
+        background: rgba(212, 175, 55, 0.08);
+        border-color: rgba(212, 175, 55, 0.2);
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .capture-icon-container {
+        width: 70px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(212, 175, 55, 0.06);
+        border-radius: 50%;
+        margin-bottom: 0.5rem;
+    }
+
+    .capture-icon-svg {
+        width: 32px;
+        height: 32px;
+        fill: var(--color-gold);
+    }
+
+    .capture-text {
+        font-size: 1.05rem;
+        font-weight: 500;
+        color: #ffffff;
+        margin: 0;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 992px) {
+        .vision-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+        }
+
+        .capture-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .capture-card-wide {
+            padding: 3rem 1.5rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 2.75rem;
+        }
+
+        .section-title {
+            font-size: 2.25rem;
+        }
+
+        .story-section-full-width {
+            padding: 5rem 0;
+            background-attachment: scroll; /* Smoother scrolling on mobile devices */
+        }
+
+        .story-intro {
+            font-size: 1.15rem;
+        }
+
+        .mission-text-line {
+            font-size: 1.15rem;
+        }
+
+        .promise-layout {
+            gap: 1rem;
+        }
+
+        .promise-card {
+            width: 120px;
+            height: 120px;
+        }
+
+        .promise-text {
+            font-size: 0.75rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .vision-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<!-- Hero Section -->
+<section class="about-hero">
+    <div class="hero-content">
+        <h1 class="hero-title">About Us</h1>
+        <div class="hero-divider"></div>
+    </div>
+</section>
+
+<!-- Full-Width Story Section with about.png Background Image -->
+<section class="story-section-full-width">
+    <div class="container">
+        <div class="story-content">
+            <div class="section-header">
+                <p class="section-label">Our Story</p>
+                <h2 class="section-title">The Story of <span class="text-gradient">Sashka Matka</span></h2>
+            </div>
+            
+            <p class="story-intro">
+                SASHKA MATKA started with a passion to create a tea experience people could emotionally connect with.
+            </p>
+            <p class="story-text">
+                Tea has always been part of everyday life — conversations, friendships, family time, work breaks, celebrations, and peaceful evenings. But most tea spaces felt repetitive and ordinary.
+            </p>
+            <p class="story-text">
+                We wanted to change that.
+            </p>
+            <p class="story-text">
+                The idea behind SASHKA MATKA was simple: Create a modern tea destination where flavours, atmosphere, comfort, presentation, and experiences come together beautifully.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Vision Section -->
+<section class="vision-section container">
+    <div class="section-header">
+        <p class="section-label">Our Vision</p>
+        <h2 class="section-title">Our Vision</h2>
+    </div>
+
+    <div class="vision-grid">
+        <!-- Card 1 -->
+        <div class="vision-card">
+            <div class="vision-icon-wrapper">
+                <svg class="vision-icon-svg" viewBox="0 0 24 24">
+                    <path d="M2 21h18v-2H2v2M20 8h-2V5h2v3m0-5h-4v7h4V3M4 19h12v-9H4v9m4-7h4v2H8v-2z"/>
+                </svg>
+            </div>
+            <h4 class="vision-title">Traditional Tea Culture</h4>
+        </div>
+        <!-- Card 2 -->
+        <div class="vision-card">
+            <div class="vision-icon-wrapper">
+                <svg class="vision-icon-svg" viewBox="0 0 24 24">
+                    <path d="M12 2L9.12 7.84 2.78 8.76l4.59 4.47-1.08 6.31L12 16.57l5.71 3 1.08-6.31 4.59-4.47-6.34-.92L12 2z"/>
+                </svg>
+            </div>
+            <h4 class="vision-title">Innovative Flavors</h4>
+        </div>
+        <!-- Card 3 -->
+        <div class="vision-card">
+            <div class="vision-icon-wrapper">
+                <svg class="vision-icon-svg" viewBox="0 0 24 24">
+                    <path d="M12 3L2 12h3v8h14v-8h3L12 3zm0 11c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+                </svg>
+            </div>
+            <h4 class="vision-title">Premium Atmosphere</h4>
+        </div>
+        <!-- Card 4 -->
+        <div class="vision-card">
+            <div class="vision-icon-wrapper">
+                <svg class="vision-icon-svg" viewBox="0 0 24 24">
+                    <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 1.21-1.04 2.01-3 2.01-2.01 0-2.81-.94-2.9-2.21H5.09c.09 2.16 1.7 3.38 3.71 3.84V21h3v-2.15c2.01-.37 3.5-1.5 3.5-3.55 0-2.79-2.23-3.81-4.7-4.4z"/>
+                </svg>
+            </div>
+            <h4 class="vision-title">Affordable Quality</h4>
+        </div>
+        <!-- Card 5 -->
+        <div class="vision-card">
+            <div class="vision-icon-wrapper">
+                <svg class="vision-icon-svg" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/>
+                </svg>
+            </div>
+            <h4 class="vision-title">Youthful Experience</h4>
+        </div>
+        <!-- Card 6 -->
+        <div class="vision-card">
+            <div class="vision-icon-wrapper">
+                <svg class="vision-icon-svg" viewBox="0 0 24 24">
+                    <path d="M12 2L2 22h20L12 2zm0 3.99L19.53 19H4.47L12 5.99zM13 16h-2v2h2v-2zm0-6h-2v4h2v-4z"/>
+                </svg>
+            </div>
+            <h4 class="vision-title">Franchise Ready</h4>
+        </div>
+    </div>
+</section>
+
+<!-- Mission Section -->
+<section class="mission-section container">
+    <div class="section-header">
+        <p class="section-label">Our Mission</p>
+    </div>
+    <div class="mission-single-line">
+        <p class="mission-text-line">
+            To create tea spaces where people connect, relax, share conversations, and experience tea in completely new ways.
+        </p>
+    </div>
+</section>
+
+<!-- Promise Section -->
+<section class="promise-section container">
+    <div class="section-header">
+        <p class="section-label">Our Promise</p>
+        <h2 class="section-title">Our Promise</h2>
+    </div>
+
+    <div class="promise-layout">
+        <div class="promise-row">
+            <div class="promise-card">
+                <svg class="promise-icon-svg" viewBox="0 0 24 24">
+                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                </svg>
+                <p class="promise-text">Memorable</p>
+            </div>
+            <div class="promise-card">
+                <svg class="promise-icon-svg" viewBox="0 0 24 24">
+                    <path d="M17 8C8 10 5.9 16.17 3.82 21.34c1.91-.34 5.06-1.57 7.74-3.57 2.82 1.83 5.4 1.9 7.44 1.98C19 16 19 11 17 8z"/>
+                </svg>
+                <p class="promise-text">Fresh</p>
+            </div>
+            <div class="promise-card">
+                <svg class="promise-icon-svg" viewBox="0 0 24 24">
+                    <path d="M20 10V7c0-1.1-.9-2-2-2H6c-1.1 0-2 .9-2 2v3c-1.105 0-2 .895-2 2v5h2v3h16v-3h2v-5c0-1.105-.895-2-2-2z"/>
+                </svg>
+                <p class="promise-text">Comfortable</p>
+            </div>
+            <div class="promise-card">
+                <svg class="promise-icon-svg" viewBox="0 0 24 24">
+                    <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                </svg>
+                <p class="promise-text">Affordable</p>
+            </div>
+            <div class="promise-card">
+                <svg class="promise-icon-svg" viewBox="0 0 24 24">
+                    <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                </svg>
+                <p class="promise-text">Social</p>
+            </div>
+            <div class="promise-card">
+                <svg class="promise-icon-svg" viewBox="0 0 24 24">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+                <p class="promise-text">Emotional</p>
+            </div>
+            <div class="promise-card">
+                <svg class="promise-icon-svg" viewBox="0 0 24 24">
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+                <p class="promise-text">Consistent</p>
+            </div>
+        </div>
+    </div>
+
+    <p class="promise-center-text">
+        Every cup served at SASHKA MATKA carries the commitment to quality, atmosphere, and customer happiness.
+    </p>
+</section>
+
+<!-- Capture the Moment Section -->
+<section class="capture-section container">
+    <div class="section-header">
+        <h2 class="section-title">Capture the Moment</h2>
+    </div>
+
+    <div class="capture-card-wide">
+        <p class="capture-intro">
+            SASHKA MATKA is designed to be visually memorable, socially vibrant, and experience-driven.
+        </p>
+
+        <div class="capture-grid">
+            <div class="capture-item">
+                <div class="capture-icon-container">
+                    <svg class="capture-icon-svg" viewBox="0 0 24 24">
+                        <path d="M4 4h3l2-2h6l2 2h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2m8 3a5 5 0 0 0-5 5 5 5 0 0 0 5 5 5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 2a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3z"/>
+                    </svg>
+                </div>
+                <p class="capture-text">Every tea has a presentation</p>
+            </div>
+            <div class="capture-item">
+                <div class="capture-icon-container">
+                    <svg class="capture-icon-svg" viewBox="0 0 24 24">
+                        <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-15H9v2h2V7zm0 4H9v6h2v-6zm4-4h-2v2h2V7zm0 4h-2v6h2v-6z"/>
+                    </svg>
+                </div>
+                <p class="capture-text">Every corner has a mood</p>
+            </div>
+            <div class="capture-item">
+                <div class="capture-icon-container">
+                    <svg class="capture-icon-svg" viewBox="0 0 24 24">
+                        <path d="M12 2a10 10 0 0 0-10 10c0 5.523 4.477 10 10 10s10-4.477 10-10A10 10 0 0 0 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm1-13h-2v6l5.25 3.15.75-1.23-4.5-2.67V7z"/>
+                    </svg>
+                </div>
+                <p class="capture-text">Every visit creates a memory</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,675 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block breadcrumb %}Franchise{% endblock %}
+
+{% block content %}
+<style>
+    /* Animations */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes scaleIn {
+        from {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @keyframes slideInLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    /* Hero Section */
+    .franchise-hero {
+        position: relative;
+        min-height: 60vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(93, 138, 103, 0.05) 100%);
+    }
+
+    .hero-content {
+        text-align: center;
+        z-index: 2;
+        position: relative;
+    }
+
+    .hero-label {
+        display: inline-block;
+        font-size: 0.85rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: #d4af37;
+        margin-bottom: 1.5rem;
+        animation: fadeInUp 0.8s ease-out;
+    }
+
+    .hero-main {
+        font-family: var(--font-display);
+        font-size: 4.5rem;
+        font-weight: 700;
+        line-height: 1.1;
+        color: #ffffff;
+        margin-bottom: 1.5rem;
+        animation: fadeInUp 0.8s ease-out 0.2s forwards;
+        opacity: 0;
+    }
+
+    .hero-divider {
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(90deg, #d4af37, #5D8A67);
+        margin: 2rem auto;
+        animation: fadeInUp 0.8s ease-out 0.4s forwards;
+        opacity: 0;
+    }
+
+    .hero-subtitle {
+        font-size: 1.3rem;
+        font-weight: 300;
+        color: #c0c0c0;
+        max-width: 700px;
+        margin: 0 auto;
+        animation: fadeInUp 0.8s ease-out 0.6s forwards;
+        opacity: 0;
+    }
+
+    /* Focus Points Section */
+    .focus-section {
+        padding: 6rem 0;
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 5rem;
+    }
+
+    .section-label {
+        display: inline-block;
+        font-size: 0.8rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: #d4af37;
+        margin-bottom: 1rem;
+    }
+
+    .section-title {
+        font-family: var(--font-display);
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 0;
+    }
+
+    .focus-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+    }
+
+    .focus-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(212, 175, 55, 0.1);
+        border-radius: 1.5rem;
+        padding: 2.5rem 2rem;
+        text-align: center;
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        position: relative;
+        overflow: hidden;
+        animation: scaleIn 0.6s ease-out forwards;
+        opacity: 0;
+    }
+
+    .focus-card:nth-child(1) { animation-delay: 0.1s; }
+    .focus-card:nth-child(2) { animation-delay: 0.15s; }
+    .focus-card:nth-child(3) { animation-delay: 0.2s; }
+    .focus-card:nth-child(4) { animation-delay: 0.25s; }
+    .focus-card:nth-child(5) { animation-delay: 0.3s; }
+    .focus-card:nth-child(6) { animation-delay: 0.35s; }
+    .focus-card:nth-child(7) { animation-delay: 0.4s; }
+    .focus-card:nth-child(8) { animation-delay: 0.45s; }
+
+    .focus-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #d4af37, transparent);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .focus-card:hover::before {
+        opacity: 1;
+    }
+
+    .focus-card:hover {
+        transform: translateY(-8px);
+        border-color: #d4af37;
+        box-shadow: 0 20px 40px rgba(212, 175, 55, 0.1);
+    }
+
+    .focus-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(93, 138, 103, 0.2));
+        color: #d4af37;
+        font-family: var(--font-display);
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin: 0 auto 1rem;
+    }
+
+    .focus-text {
+        color: #d0d0d0;
+        font-size: 1.05rem;
+        line-height: 1.7;
+        font-weight: 300;
+    }
+
+    /* Support Section */
+    .support-section {
+        padding: 6rem 0;
+        background: linear-gradient(180deg, rgba(212, 175, 55, 0.03) 0%, transparent 100%);
+    }
+
+    .support-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-top: 4rem;
+    }
+
+    .support-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(212, 175, 55, 0.15);
+        border-radius: 1.5rem;
+        padding: 3rem 2rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        position: relative;
+        animation: scaleIn 0.6s ease-out forwards;
+        opacity: 0;
+    }
+
+    .support-card:nth-child(1) { animation-delay: 0.1s; }
+    .support-card:nth-child(2) { animation-delay: 0.2s; }
+    .support-card:nth-child(3) { animation-delay: 0.3s; }
+    .support-card:nth-child(4) { animation-delay: 0.4s; }
+    .support-card:nth-child(5) { animation-delay: 0.5s; }
+
+    .support-card:hover {
+        border-color: #d4af37;
+        box-shadow: 0 25px 50px rgba(212, 175, 55, 0.15);
+        transform: translateY(-10px);
+    }
+
+    .support-icon {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+        display: block;
+    }
+
+    .support-title {
+        font-family: var(--font-display);
+        font-size: 1.4rem;
+        color: #ffffff;
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+
+    .support-description {
+        color: #a0a0a0;
+        font-size: 0.95rem;
+        line-height: 1.7;
+        font-weight: 300;
+    }
+
+    /* Form Section */
+    .form-section {
+        padding: 6rem 0;
+    }
+
+    .form-wrapper {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .form-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .form-title {
+        font-family: var(--font-display);
+        font-size: 3rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 1rem;
+    }
+
+    .form-subtitle {
+        color: #b0b0b0;
+        font-size: 1.05rem;
+        font-weight: 300;
+    }
+
+    .form-container {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(212, 175, 55, 0.15);
+        border-radius: 2rem;
+        padding: 3rem;
+        animation: slideInUp 0.8s ease-out;
+    }
+
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .form-group {
+        margin-bottom: 2rem;
+        position: relative;
+    }
+
+    .form-group:last-child {
+        margin-bottom: 0;
+    }
+
+    .form-label {
+        display: block;
+        color: #d4af37;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .form-label .required {
+        color: #ff6b6b;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(212, 175, 55, 0.2);
+        border-radius: 0.75rem;
+        padding: 1rem;
+        color: #ffffff;
+        font-family: var(--font-sans);
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .form-input::placeholder,
+    .form-select::placeholder,
+    .form-textarea::placeholder {
+        color: rgba(255, 255, 255, 0.4);
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+        outline: none;
+        background: rgba(255, 255, 255, 0.08);
+        border-color: #d4af37;
+        box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+    }
+
+    .form-textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+
+    @media (max-width: 768px) {
+        .form-row {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+    }
+
+    .form-button {
+        width: 100%;
+        background: linear-gradient(135deg, #d4af37 0%, #c9a027 100%);
+        color: #0F0F0F;
+        border: none;
+        border-radius: 0.75rem;
+        padding: 1.2rem;
+        font-size: 1.05rem;
+        font-weight: 600;
+        font-family: var(--font-sans);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-top: 0.5rem;
+    }
+
+    .form-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+    }
+
+    .form-button:active {
+        transform: translateY(0);
+    }
+
+    .form-message {
+        margin-top: 1rem;
+        padding: 1rem;
+        border-radius: 0.75rem;
+        text-align: center;
+        font-size: 0.95rem;
+        display: none;
+    }
+
+    .form-message.success {
+        background: rgba(76, 175, 80, 0.2);
+        border: 1px solid rgba(76, 175, 80, 0.5);
+        color: #81c784;
+        display: block;
+    }
+
+    .form-message.error {
+        background: rgba(244, 67, 54, 0.2);
+        border: 1px solid rgba(244, 67, 54, 0.5);
+        color: #ef5350;
+        display: block;
+    }
+
+    /* CTA Section */
+    .cta-section {
+        padding: 4rem 0 6rem;
+        text-align: center;
+    }
+
+    .cta-text {
+        color: #b0b0b0;
+        font-size: 1.1rem;
+        margin-top: 2rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .hero-main {
+            font-size: 2.5rem;
+        }
+
+        .section-title,
+        .form-title {
+            font-size: 2.5rem;
+        }
+
+        .focus-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .form-container {
+            padding: 2rem;
+        }
+    }
+
+    /* Select styling */
+    .form-select {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23d4af37' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        padding-right: 2.5rem;
+    }
+
+    .form-select option {
+        background: #0F0F0F;
+        color: #ffffff;
+    }
+</style>
+
+<!-- Hero Section -->
+<section class="franchise-hero">
+    <div class="hero-content">
+        <div class="hero-label">Franchise Opportunity</div>
+        <h1 class="hero-main">Grow With Sashka Matka</h1>
+        <div class="hero-divider"></div>
+        <p class="hero-subtitle">Building a scalable modern tea experience brand designed for expansion. Join passionate entrepreneurs and café lovers in bringing premium tea culture to your city.</p>
+    </div>
+</section>
+
+<!-- Focus Points Section -->
+<section class="focus-section container">
+    <div class="section-header">
+        <p class="section-label">Why Franchise With Us</p>
+        <h2 class="section-title">Our Franchise Focus</h2>
+    </div>
+
+    <div class="focus-grid">
+        <div class="focus-card">
+            <div class="focus-number">01</div>
+            <p class="focus-text">Unique tea concepts</p>
+        </div>
+        <div class="focus-card">
+            <div class="focus-number">02</div>
+            <p class="focus-text">Strong visual branding</p>
+        </div>
+        <div class="focus-card">
+            <div class="focus-number">03</div>
+            <p class="focus-text">Modern café atmosphere</p>
+        </div>
+        <div class="focus-card">
+            <div class="focus-number">04</div>
+            <p class="focus-text">High repeat customer potential</p>
+        </div>
+        <div class="focus-card">
+            <div class="focus-number">05</div>
+            <p class="focus-text">Scalable operating system</p>
+        </div>
+        <div class="focus-card">
+            <div class="focus-number">06</div>
+            <p class="focus-text">Experience-driven customer model</p>
+        </div>
+        <div class="focus-card">
+            <div class="focus-number">07</div>
+            <p class="focus-text">Social media friendly branding</p>
+        </div>
+        <div class="focus-card">
+            <div class="focus-number">08</div>
+            <p class="focus-text">Expansion-focused approach</p>
+        </div>
+    </div>
+</section>
+
+<!-- Support Section -->
+<section class="support-section container">
+    <div class="section-header">
+        <p class="section-label">Franchise Support</p>
+        <h2 class="section-title">What We Support</h2>
+    </div>
+
+    <div class="support-grid">
+        <div class="support-card">
+            <span class="support-icon">🏪</span>
+            <h3 class="support-title">Brand & Store Setup</h3>
+            <p class="support-description">Complete support in store concept and setup guidance to ensure your space reflects our premium brand.</p>
+        </div>
+
+        <div class="support-card">
+            <span class="support-icon">📚</span>
+            <h3 class="support-title">Training</h3>
+            <p class="support-description">Operational and preparation training for smooth functioning and consistent quality delivery.</p>
+        </div>
+
+        <div class="support-card">
+            <span class="support-icon">🍵</span>
+            <h3 class="support-title">Product Support</h3>
+            <p class="support-description">Guidance on tea preparation standards and experience consistency across all locations.</p>
+        </div>
+
+        <div class="support-card">
+            <span class="support-icon">📱</span>
+            <h3 class="support-title">Marketing Support</h3>
+            <p class="support-description">Branding, promotions, and social media direction support to drive customer engagement.</p>
+        </div>
+
+        <div class="support-card">
+            <span class="support-icon">⚙️</span>
+            <h3 class="support-title">Operations Guidance</h3>
+            <p class="support-description">Ongoing support for maintaining quality, customer experience, and operational consistency.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Form Section -->
+<section class="form-section container">
+    <div class="form-wrapper">
+        <div class="form-header">
+            <p class="section-label">Let's Connect</p>
+            <h2 class="form-title">Franchise Enquiry</h2>
+            <p class="form-subtitle">Interested in becoming part of the SASHKA MATKA journey? We'd love to connect with passionate entrepreneurs and café lovers.</p>
+        </div>
+
+        <div class="form-container">
+            <form id="franchiseForm" method="POST" action="{% url 'franchise_enquiry' %}">
+                {% csrf_token %}
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Your Name <span class="required">*</span></label>
+                        <input type="text" name="full_name" class="form-input" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address <span class="required">*</span></label>
+                        <input type="email" name="email" class="form-input" placeholder="your@email.com" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Mobile Number <span class="required">*</span></label>
+                        <input type="tel" name="mobile" class="form-input" placeholder="+91 XXXXX XXXXX" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Preferred Location <span class="required">*</span></label>
+                        <select name="preferred_location" class="form-select" required>
+                            <option value="">Select a location</option>
+                            <option value="north_india">North India</option>
+                            <option value="south_india">South India</option>
+                            <option value="east_india">East India</option>
+                            <option value="west_india">West India</option>
+                            <option value="central_india">Central India</option>
+                            <option value="northeast_india">Northeast India</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Business Background <span class="required">*</span></label>
+                    <textarea name="business_background" class="form-textarea" placeholder="Tell us briefly about your business background, experience, and why you're interested in Sashka Matka..." required></textarea>
+                </div>
+
+                <button type="submit" class="form-button">Submit Enquiry</button>
+                
+                <div id="formMessage" class="form-message"></div>
+            </form>
+        </div>
+
+        <div class="cta-section">
+            <p class="cta-text">Questions? <a href="{% url 'contact' %}" style="color: #d4af37; text-decoration: none; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Contact us directly</a></p>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.getElementById('franchiseForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formMessage = document.getElementById('formMessage');
+        const submitButton = this.querySelector('.form-button');
+        const originalText = submitButton.textContent;
+        
+        submitButton.textContent = 'Sending...';
+        submitButton.disabled = true;
+        
+        try {
+            const formData = new FormData(this);
+            const response = await fetch(this.action, {
+                method: 'POST',
+                body: formData,
+            });
+            
+            if (response.ok) {
+                formMessage.classList.remove('error');
+                formMessage.classList.add('success');
+                formMessage.textContent = '✓ Thank you! We\'ll be in touch soon.';
+                this.reset();
+            } else {
+                formMessage.classList.remove('success');
+                formMessage.classList.add('error');
+                formMessage.textContent = '✗ Something went wrong. Please try again.';
+            }
+        } catch (error) {
+            formMessage.classList.remove('success');
+            formMessage.classList.add('error');
+            formMessage.textContent = '✗ Network error. Please try again.';
+        } finally {
+            submitButton.textContent = originalText;
+            submitButton.disabled = false;
+        }
+    });
+</script>
+
+{% endblock %}

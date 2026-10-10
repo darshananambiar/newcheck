@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block breadcrumb %}Collections{% endblock %}
+
+{% block content %}
+<!-- Tea Collection Section -->
+<section class="container py-24">
+    <div class="text-center mb-16">
+        <p class="text-d4af37 text-sm uppercase tracking-wider mb-4">TEA COLLECTION</p>
+        <h2 class="font-playfair text-5xl font-bold text-white mb-6">Our Signature Teas</h2>
+    </div>
+    <div id="product-grid" class="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-3 gap-8">
+    </div>
+</section>
+
+<script>
+    const TEA_DATA = [
+        { id: 1, name: 'Sashka Matka Tea', category: 'Signature', price: 24, emoji: '🫖', desc: 'Our signature blend' },
+        { id: 2, name: 'Bangkok Tea', category: 'International', price: 32, emoji: '🇹🇭', desc: 'Thai-inspired flavors' },
+        { id: 3, name: 'Japanese Matcha', category: 'Signature', price: 36, emoji: '🍵', desc: 'Premium ceremonial matcha' },
+        { id: 4, name: 'Saffron Tea', category: 'Luxury', price: 45, emoji: '✨', desc: 'Exotic saffron infusion' },
+        { id: 5, name: 'Geisha Tea', category: 'Signature', price: 38, emoji: '🎎', desc: 'Elegant Japanese blend' },
+        { id: 6, name: 'Silver Needle', category: 'Classic', price: 34, emoji: '🍃', desc: 'Rare white tea' },
+        { id: 7, name: 'Berry Berry Tea', category: 'Fruit', price: 28, emoji: '🫐', desc: 'Refreshing berry blend' },
+        { id: 8, name: 'Good Night Tea', category: 'Wellness', price: 26, emoji: '🌙', desc: 'Calming bedtime blend' },
+        { id: 9, name: 'Bubble Tea', category: 'Special', price: 30, emoji: '🧋', desc: 'Delicious bubble teas' }
+    ];
+
+    function renderProducts() {
+        const grid = document.getElementById('product-grid');
+        grid.innerHTML = TEA_DATA.map((tea, i) => `
+            <div class="product-card glass p-8 border border-d4af37-10" style="animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.1}s forwards;">
+                <div class="relative rounded-2xl bg-gradient-to-br from-141414 to-0d0d0d h-56 mb-6 flex items-center justify-center">
+                    <div class="w-24 h-24 rounded-full border-2 border-d4af37-20 flex items-center justify-center">
+                        <span class="text-5xl">${tea.emoji}</span>
+                    </div>
+                </div>
+                <span class="text-xs uppercase tracking-wider text-gray-500 glass px-3 py-1 rounded-full">${tea.category}</span>
+                <h3 class="font-playfair text-xl text-white mt-4 mb-3">${tea.name}</h3>
+                <p class="text-gray-500 text-sm mb-4">${tea.desc}</p>
+                <div class="text-right">
+                    <span class="text-d4af37 font-bold text-2xl">₹${tea.price}</span>
+                </div>
+            </div>`
+        ).join('');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        renderProducts();
+    });
+</script>
+{% endblock %}

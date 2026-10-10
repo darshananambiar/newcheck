@@ -1,0 +1,745 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Swiper CSS (CDN) loaded directly inside block -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<!-- Full-Width Header Section (Stretches full width) -->
+<header class="relative overflow-hidden w-full transition-all duration-500 shadow-2xl">
+    <div class="carousel-container relative min-h-[500px] md:min-h-[650px] w-full">
+        
+        <div class="carousel-slide active absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out flex flex-col justify-center" 
+             style="background: linear-gradient(to right, rgba(15,15,15,0.95) 35%, rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;">
+            <div class="px-6 md:px-16 lg:px-24 max-w-7xl mx-auto w-full transform translate-y-4 transition-transform duration-1000 ease-out current-slide-content">
+                <div class="max-w-2xl">
+                    <span class="text-xs font-bold tracking-widest text-d4af37 uppercase mb-3 block animate-pulse">Welcome to Sashka Matka</span>
+                    <h1 class="font-playfair text-4xl md:text-7xl text-white font-bold leading-tight mb-6">A Modern <br><span class="text-gradient">Tea Culture</span></h1>
+                    <p class="text-sm md:text-base text-gray-400 mb-8 leading-relaxed max-w-lg">Where traditional warmth seamlessly meets modern aesthetic cafe structures. Crafted for premium experiences, youth vibrancy, and rich conversations.</p>
+                    <div>
+                        <a href="#vibe-insights" class="btn-gold inline-block transform hover:scale-105 transition-transform duration-300">Explore Our Story</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="carousel-slide absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out flex flex-col justify-center" 
+             style="background: linear-gradient(to right, rgba(15,15,15,0.95) 35%, rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;">
+            <div class="px-6 md:px-16 lg:px-24 max-w-7xl mx-auto w-full transform translate-y-4 transition-transform duration-1000 ease-out current-slide-content">
+                <div class="max-w-2xl">
+                    <span class="text-xs font-bold tracking-widest text-d4af37 uppercase mb-3 block">Exotic Collections</span>
+                    <h2 class="font-playfair text-4xl md:text-6xl text-white font-bold leading-tight mb-6">Experience Tea <br><span class="text-gradient">Differently</span></h2>
+                    <p class="text-sm md:text-base text-gray-400 mb-8 leading-relaxed max-w-lg">Diverging from regular cafes to provide premium selections from around the globe, served in traditional clay-inspired art structures.</p>
+                    <div>
+                        <a href="#signature-catalog" class="btn-gold inline-block transform hover:scale-105 transition-transform duration-300">View Collections</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-3 z-10">
+        <button aria-label="Go to slide 1" class="slider-dot active w-3 h-3 rounded-full bg-white/30 hover:bg-white/60 transition-all duration-300 cursor-pointer" onclick="switchSlide(0)"></button>
+        <button aria-label="Go to slide 2" class="slider-dot w-3 h-3 rounded-full bg-white/30 hover:bg-white/60 transition-all duration-300 cursor-pointer" onclick="switchSlide(1)"></button>
+    </div>
+</header>
+
+<!-- Constrained Segment 1: Catalog & Signature experience -->
+<div class="site-master-container container mx-auto px-4 py-8 md:py-16 space-y-20 md:space-y-32">
+    <!-- Signature Teas Section -->
+    <section id="signature-catalog" class="tea-catalog-section">
+        <div class="tea-catalog-header text-center mb-12">
+            <span class="text-xs font-bold tracking-widest text-d4af37 uppercase block mb-2">Tea Collection</span>
+            <h2 class="font-playfair text-3xl md:text-4xl text-white font-bold leading-tight">Our Signature Teas</h2>
+            <div class="w-16 h-0.5 bg-gradient-to-right from-transparent via-d4af37 to-transparent mx-auto mt-4"></div>
+        </div>
+
+        <div class="tea-catalog-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <article class="tea-card tea-card--gold transform hover:-translate-y-1 transition-all duration-300">
+                <div class="tea-card-icon">
+                    <!-- Original Matka Cup Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 2v3M8 3v2M16 3v2M5 10c0-1.5 1-3 3-3h8c2 0 3 1.5 3 3v4c0 3.5-3 6-7 6s-7-2.5-7-6v-4Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 10h1.5a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5H19" />
+                    </svg>
+                </div>
+                <h3 class="tea-card-title">Sashka Matka Tea</h3>
+                <span class="tea-card-profile">Smoky & Malt-Rich</span>
+            </article>
+
+            <article class="tea-card tea-card--amber transform hover:-translate-y-1 transition-all duration-300">
+                <div class="tea-card-icon">
+                    <!-- Original Citrus / Tropical Blossom Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                        <circle cx="12" cy="12" r="9" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M3 12h18M5.636 5.636l12.728 12.728M5.636 18.364L18.364 5.636" />
+                    </svg>
+                </div>
+                <h3 class="tea-card-title">Bangkok Tea</h3>
+                <span class="tea-card-profile">Citrus & Creamy</span>
+            </article>
+
+            <article class="tea-card tea-card--emerald transform hover:-translate-y-1 transition-all duration-300">
+                <div class="tea-card-icon">
+                    <!-- Original Traditional Matcha Bowl & Whisk Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 11c0 4.418 3.582 8 8 8s8-3.582 8-8H4Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 11V8c0-.55.45-1 1-1h4c.55 0 1 .45 1 1v3" />
+                    </svg>
+                </div>
+                <h3 class="tea-card-title">Japanese Matcha Tea</h3>
+                <span class="tea-card-profile">Velvety & Earthy Umami</span>
+            </article>
+
+            <article class="tea-card tea-card--orange transform hover:-translate-y-1 transition-all duration-300">
+                <div class="tea-card-icon">
+                    <!-- Original Saffron Filament/Flower Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 21c-2.5 0-5-3-5-7 0-3 1.5-6 5-11 3.5 5 5 8 5 11 0 4-2.5 7-5 7Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v7M10 11s1-1 2-1 2 1 2 1" />
+                    </svg>
+                </div>
+                <h3 class="tea-card-title">Saffron Tea</h3>
+                <span class="tea-card-profile">Floral Noble Warmth</span>
+            </article>
+
+            <article class="tea-card tea-card--rose transform hover:-translate-y-1 transition-all duration-300">
+                <div class="tea-card-icon">
+                    <!-- Original Sakura Blossom Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 10c0-3.5-2-5-2-5s-2 1.5-2 5c0 1.5 1 2 2 2s2-.5 2-2Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 14c0 3.5 2 5 2 5s2-1.5 2-5c0-1.5-1-2-2-2s-2 .5-2 2Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14 12c3.5 0 5-2 5-2s-1.5-2-5-2c-1.5 0-2 1-2 2s.5 2 2 2Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 12c-3.5 0-5 2-5 2s1.5 2 5 2c1.5 0 2-1 2-2s-.5-2-2-2Z" />
+                    </svg>
+                </div>
+                <h3 class="tea-card-title">Geisha Tea</h3>
+                <span class="tea-card-profile">Orchard Sweet & Light</span>
+            </article>
+
+            <article class="tea-card tea-card--cyan transform hover:-translate-y-1 transition-all duration-300">
+                <div class="tea-card-icon">
+                    <!-- Original Single Leaf Needle Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                </div>
+                <h3 class="tea-card-title">Silver Needle White</h3>
+                <span class="tea-card-profile">Crystalline & Crisp</span>
+            </article>
+
+            <article class="tea-card tea-card--red transform hover:-translate-y-1 transition-all duration-300">
+                <div class="tea-card-icon">
+                    <!-- Original Double Berry Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                        <circle cx="8" cy="14" r="4" />
+                        <circle cx="16" cy="14" r="4" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 10c0-3 2-5 4-5s4 2 4 5" />
+                    </svg>
+                </div>
+                <h3 class="tea-card-title">Berry Berry Tea</h3>
+                <span class="tea-card-profile">Boldly Tart & Fruity</span>
+            </article>
+
+            <article class="tea-card tea-card--indigo transform hover:-translate-y-1 transition-all duration-300">
+                <div class="tea-card-icon">
+                    <!-- Original Botanical chamomile/Moon Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+                    </svg>
+                </div>
+                <h3 class="tea-card-title">Good Night Tea</h3>
+                <span class="tea-card-profile">Soothing & Botanical</span>
+            </article>
+
+            <article class="tea-card tea-card--purple transform hover:-translate-y-1 transition-all duration-300">
+                <div class="tea-card-icon">
+                    <!-- Original Boba / Bubble Tea Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 3h12l-2 15H8L6 3Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14 3l1-2" />
+                        <circle cx="10" cy="12" r="1" fill="currentColor" />
+                        <circle cx="14" cy="10" r="1" fill="currentColor" />
+                        <circle cx="12" cy="14" r="1" fill="currentColor" />
+                        <circle cx="10" cy="15" r="1" fill="currentColor" />
+                    </svg>
+                </div>
+                <h3 class="tea-card-title">Bubble & Milk Tea</h3>
+                <span class="tea-card-profile">Rich, Sweet & Iced</span>
+            </article>
+        </div>
+    </section>
+
+    <!-- Experience Grid Cards -->
+    <section id="signature-experience" class="tea-catalog-section">
+        <div class="tea-catalog-header text-center mb-12">
+            <span class="text-xs font-bold tracking-widest text-d4af37 uppercase block mb-2">Signature Experience</span>
+            <h2 class="font-playfair text-3xl md:text-4xl text-white font-bold leading-tight">Experience Tea Differently</h2>
+            <div class="w-16 h-0.5 bg-gradient-to-right from-transparent via-d4af37 to-transparent mx-auto mt-4"></div>
+        </div>
+
+        <div class="tea-catalog-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div class="tea-card tea-card--gold transform hover:-translate-y-1 transition-all duration-300">
+                <div class="tea-card-icon">
+                    <!-- Original Clay Kettle Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 14h18M6 14c0-3.5 2-6 6-6s6 2.5 6 6M12 8V5a2 2 0 0 1 2-2h1M21 14h1" />
+                    </svg>
+                </div>
+                <h3 class="tea-card-title !mb-2">Matka Tea Experience</h3>
+                <p class="text-xs text-neutral-400 leading-relaxed">Slow-brewed flavours served with the richness and warmth of traditional clay-inspired tea culture.</p>
+            </div>
+            
+            <div class="tea-card tea-card--amber transform hover:-translate-y-1 transition-all duration-300">
+                <div class="tea-card-icon">
+                    <!-- Original Architecture Arch Cafe Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 21V10a4 4 0 0 0-8 0v11M20 21V10a4 4 0 0 0-4-4" />
+                    </svg>
+                </div>
+                <h3 class="tea-card-title !mb-2">Modern Café Vibes</h3>
+                <p class="text-xs text-neutral-400 leading-relaxed">A space designed for conversations, work breaks, evening hangouts, and memorable moments.</p>
+            </div>
+            
+            <div class="tea-card tea-card--emerald transform hover:-translate-y-1 transition-all duration-300">
+                <div class="tea-card-icon">
+                    <!-- Original Globe Line / Exotic Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                        <circle cx="12" cy="12" r="9" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.6 9h16.8M3.6 15h16.8M12 3a15.3 15.3 0 0 1 4 9 15.3 15.3 0 0 1-4 9 15.3 15.3 0 0 1-4-9 15.3 15.3 0 0 1 4-9Z" />
+                    </svg>
+                </div>
+                <h3 class="tea-card-title !mb-2">International Tea Collection</h3>
+                <p class="text-xs text-neutral-400 leading-relaxed">Tea experiences inspired by flavours and styles from different parts of the world.</p>
+            </div>
+            
+            <div class="tea-card tea-card--orange transform hover:-translate-y-1 transition-all duration-300">
+                <div class="tea-card-icon">
+                    <!-- Original Fine Bakery / Pastry Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c-1.2 0-2.4.6-3.2 1.6C7 3.4 5 .5 3 2c0 4 2 8 5 9V21h8V11c3-1 5-5 5-9-2 1.5-4-1.4-5.8 2.6-.8-1-2-1.6-3.2-1.6Z" />
+                    </svg>
+                </div>
+                <h3 class="tea-card-title !mb-2">Signature Snacks & Quick Bites</h3>
+                <p class="text-xs text-neutral-400 leading-relaxed">Perfectly paired snacks designed to complete your tea experience.</p>
+            </div>
+            
+            <div class="tea-card tea-card--rose transform hover:-translate-y-1 transition-all duration-300">
+                <div class="tea-card-icon">
+                    <!-- Original Connected Hearts / Social Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z"/>
+                    </svg>
+                </div>
+                <h3 class="tea-card-title !mb-2">Youthful Social Atmosphere</h3>
+                <p class="text-xs text-neutral-400 leading-relaxed">A modern tea spot built for today’s generation.</p>
+            </div>
+            
+            <div class="tea-card tea-card--cyan transform hover:-translate-y-1 transition-all duration-300">
+                <div class="tea-card-icon">
+                    <!-- Original Sparkle Fresh Quality Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 21l8.988-8.202M21 12a9 9 0 11-18 0 9 9 0 0118 0Z" />
+                    </svg>
+                </div>
+                <h3 class="tea-card-title !mb-2">Freshly Prepared Experience</h3>
+                <p class="text-xs text-neutral-400 leading-relaxed">Fresh flavours, quality ingredients, and consistent preparation in every cup.</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ==========================================================
+     VIBE INSIGHTS SECTION (Interactive Layout with Brighter Images)
+     ========================================================= -->
+<section id="vibe-insights" class="w-full space-y-0">
+
+    <!-- THE VIBE SECTION: Interactive Carousel -->
+    <div class="vibe-swiper-container w-full bg-neutral-950 py-24 border-t border-b border-white/10 relative overflow-hidden">
+        <!-- Ambient Background Gradients -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-d4af37/5 rounded-full blur-[160px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <!-- Centered Header -->
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="sashka-meta-tag tracking-[0.25em] block mb-3 text-center">The Vibe</span>
+                <h2 class="font-playfair text-3xl md:text-5xl text-white font-bold leading-tight">The Vibe People<br>Come Back For</h2>
+                <div class="w-16 h-0.5 bg-gradient-to-r from-transparent via-d4af37 to-transparent mx-auto mt-4"></div>
+            </div>
+
+            <!-- Centered Swiper Container with interactive bright cards -->
+            <div class="swiper vibeSwiper max-w-5xl mx-auto pb-14 relative px-4 md:px-12">
+                <div class="swiper-wrapper">
+                    <!-- Slide 1 -->
+                    <div class="swiper-slide">
+                        <div class="vibe-interactive-card group">
+                            <!-- Background Image -->
+                            <img class="vibe-card-bg-image" src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=400&q=80" alt="Warmth of Tea">
+                            <div class="vibe-card-overlay"></div>
+                            
+                            <div class="vibe-content-wrapper">
+                                <p class="vibe-card-text">The warmth of tea.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="swiper-slide">
+                        <div class="vibe-interactive-card group">
+                            <!-- Background Image -->
+                            <img class="vibe-card-bg-image" src="https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&w=400&q=80" alt="Fresh Flavours">
+                            <div class="vibe-card-overlay"></div>
+
+                            <div class="vibe-content-wrapper">
+                                <p class="vibe-card-text">The smell of fresh flavours.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="swiper-slide">
+                        <div class="vibe-interactive-card group">
+                            <!-- Background Image -->
+                            <img class="vibe-card-bg-image" src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=400&q=80" alt="Conversations">
+                            <div class="vibe-card-overlay"></div>
+
+                            <div class="vibe-content-wrapper">
+                                <p class="vibe-card-text">The sound of conversations.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 4 -->
+                    <div class="swiper-slide">
+                        <div class="vibe-interactive-card group">
+                            <!-- Background Image -->
+                            <img class="vibe-card-bg-image" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=400&q=80" alt="Evening Energy">
+                            <div class="vibe-card-overlay"></div>
+
+                            <div class="vibe-content-wrapper">
+                                <p class="vibe-card-text">The energy of evenings.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 5 -->
+                    <div class="swiper-slide">
+                        <div class="vibe-interactive-card group">
+                            <!-- Background Image -->
+                            <img class="vibe-card-bg-image" src="https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=400&q=80" alt="Comfort">
+                            <div class="vibe-card-overlay"></div>
+
+                            <div class="vibe-content-wrapper">
+                                <p class="vibe-card-text">The comfort of familiar people.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 6 -->
+                    <div class="swiper-slide">
+                        <div class="vibe-interactive-card group">
+                            <!-- Background Image -->
+                            <img class="vibe-card-bg-image" src="https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=400&q=80" alt="Excitement">
+                            <div class="vibe-card-overlay"></div>
+
+                            <div class="vibe-content-wrapper">
+                                <p class="vibe-card-text">The excitement of trying something new.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Floating Navigation Rings -->
+                <div class="swiper-button-next hidden md:flex vibe-nav-btn vibe-nav-next"></div>
+                <div class="swiper-button-prev hidden md:flex vibe-nav-btn vibe-nav-prev"></div>
+                
+                <!-- Pagination Dots -->
+                <div class="swiper-pagination vibe-swiper-pagination"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Full-bleed Franchise Pitch Section -->
+<section class="sec6-pitch-hero w-full relative">
+    <div class="container mx-auto px-6 py-20 md:py-28 relative z-10">
+        <div class="sec6-inner flex flex-col space-y-8 md:space-y-12">
+            
+            <div>
+                <span class="sashka-meta-tag tracking-[0.3em] text-center block mb-3">Franchise Preview</span>
+                <h2 class="sashka-section-title text-3xl md:text-6xl mb-6 text-center">Build the Next Modern Tea Destination</h2>
+                <p class="sec6-desc max-w-2xl mx-auto text-sm md:text-base text-gray-300 text-center">
+                    SASHKA MATKA is building a scalable modern tea brand focused on delivering experience-driven café culture. We welcome passionate entrepreneurs who want to grow with a fresh and exciting ecosystem engineered for immediate community retention.
+                </p>
+            </div>
+            
+            <div class="w-full mb-4">
+                <div class="franchise-matrix-grid max-w-4xl mx-auto gap-4">
+                    <div class="matrix-node transform hover:translate-x-1 transition-all duration-200">
+                        <h4 class="matrix-node-title">Concepts &amp; Identity</h4>
+                        <p class="matrix-node-desc">Unique tea concepts &amp; strong visual identity.</p>
+                    </div>
+                    <div class="matrix-node transform hover:translate-x-1 transition-all duration-200">
+                        <h4 class="matrix-node-title">Culture &amp; Ops</h4>
+                        <p class="matrix-node-desc">Experience-driven café culture with standardized operations.</p>
+                    </div>
+                    <div class="matrix-node transform hover:translate-x-1 transition-all duration-200">
+                        <h4 class="matrix-node-title">Youth Target</h4>
+                        <p class="matrix-node-desc">Youth-focused branding capturing modern digital market trends.</p>
+                    </div>
+                    <div class="matrix-node transform hover:translate-x-1 transition-all duration-200">
+                        <h4 class="matrix-node-title">Scale Models</h4>
+                        <p class="matrix-node-desc">High repeat customer potential &amp; franchise-friendly expansion.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="action-row max-w-xl mx-auto w-full mt-4">
+                <a href="{% url 'franchise' %}" class="btn-action btn-filled-gold shadow-lg">View Franchise Blueprint</a>
+                <a href="{% url 'contact' %}" class="btn-action btn-outlined-blank backdrop-blur-sm">Speak With Business Officers</a>
+            </div>
+        </div>
+    </div>
+    <div class="absolute inset-0 bg-black/55 mix-blend-multiply z-0 pointer-events-none"></div>
+</section>
+
+<style>
+    /* Continuous Slide Transitions and Smooth Carousel Adjustments */
+    .carousel-slide {
+        visibility: hidden;
+        pointer-events: none;
+    }
+    .carousel-slide.active {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+    .carousel-slide.active .current-slide-content {
+        transform: translateY(0);
+    }
+    .slider-dot.active {
+        background-color: #d4af37 !important;
+        width: 1.5rem !important;
+    }
+
+    /* PREMIUM INTERACTIVE SWIPER STYLING & CUSTOM EFFECTS */
+    .vibeSwiper {
+        padding-bottom: 4rem !important;
+    }
+    
+    .vibe-interactive-card {
+        background: rgba(10, 10, 10, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 2rem 1.5rem;
+        transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        min-height: 220px;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    /* Brighter background image layer for each card */
+    .vibe-card-bg-image {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.55; /* Increased opacity from 0.25 to 0.55 for a significantly brighter display */
+        transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
+        z-index: 0;
+    }
+
+    /* Gradient overlay to protect text readability while keeping the image bright */
+    .vibe-card-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(10, 10, 10, 0.05) 0%, rgba(5, 5, 5, 0.8) 100%);
+        transition: opacity 0.5s ease;
+        z-index: 1;
+    }
+
+    /* Content wrapper to float above background layers */
+    .vibe-content-wrapper {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Card accent lighting */
+    .vibe-interactive-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #d4af37, transparent);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        z-index: 5;
+    }
+
+    /* Interactive Hover Transitions */
+    .vibe-interactive-card:hover {
+        border-color: rgba(212, 175, 55, 0.45);
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(212, 175, 55, 0.2);
+    }
+
+    .vibe-interactive-card:hover .vibe-card-bg-image {
+        transform: scale(1.1);
+        opacity: 0.75; /* Brighter on hover */
+    }
+
+    .vibe-interactive-card:hover .vibe-card-overlay {
+        background: linear-gradient(180deg, rgba(10, 10, 10, 0.0) 0%, rgba(5, 5, 5, 0.75) 100%);
+    }
+
+    .vibe-interactive-card:hover::before {
+        opacity: 1;
+    }
+
+    .vibe-card-text {
+        color: #ffffff;
+        font-size: 1.05rem;
+        font-weight: 600;
+        line-height: 1.4;
+        letter-spacing: 0.01em;
+        transition: color 0.4s ease;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
+    }
+
+    /* Interactive Glass Navigation Buttons */
+    .vibe-nav-btn {
+        width: 44px !important;
+        height: 44px !important;
+        background: rgba(18, 18, 18, 0.6) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 50%;
+        color: #d4af37 !important;
+        transition: all 0.3s ease !important;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+
+    .vibe-nav-btn::after {
+        font-size: 1.125rem !important;
+        font-weight: bold;
+    }
+
+    .vibe-nav-btn:hover {
+        background: #d4af37 !important;
+        color: #000000 !important;
+        border-color: #d4af37 !important;
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+    }
+
+    /* Custom Bullet Pagination styling */
+    .vibe-swiper-pagination .swiper-pagination-bullet {
+        background: rgba(255, 255, 255, 0.2) !important;
+        opacity: 1 !important;
+        width: 8px;
+        height: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .vibe-swiper-pagination .swiper-pagination-bullet-active {
+        background: #d4af37 !important;
+        width: 24px !important;
+        border-radius: 4px;
+    }
+
+    /* Core typography components */
+    .sashka-meta-tag {
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.25em;
+        color: #d4af37;
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 0.875rem;
+    }
+
+    .sashka-section-title {
+        font-family: var(--font-display);
+        font-size: 2.25rem;
+        font-weight: 700;
+        line-height: 1.25;
+        color: #ffffff;
+        margin-bottom: 2rem;
+    }
+
+    /* Premium Ecosystem Contextual Background Container */
+    .sec6-pitch-hero {
+        border-top: 1px solid rgba(212, 175, 55, 0.2);
+        border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        background: radial-gradient(circle at center, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 1) 100%), 
+                    url('https://images.unsplash.com/photo-1498804103079-a6351b050096?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+    }
+    .sec6-desc {
+        color: #d4d4d4;
+        line-height: 1.7;
+    }
+
+    /* Flexible Grid Structure Layer mapping components */
+    .franchise-matrix-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        text-align: left;
+    }
+    @media (min-width: 576px) { .franchise-matrix-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 992px) { .franchise-matrix-grid { grid-template-columns: repeat(4, 1fr); } }
+
+    .matrix-node {
+        background-color: #000000;
+        border-left: 3px solid rgba(212, 175, 55, 0.5);
+        padding: 1.25rem;
+        border-radius: 0 12px 12px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.03);
+        border-right: 1px solid rgba(255, 255, 255, 0.03);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+    .matrix-node-title {
+        color: #ffffff;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.35rem;
+        text-transform: uppercase;
+    }
+    .matrix-node-desc {
+        color: #a3a3a3;
+        font-size: 0.75rem;
+        line-height: 1.4;
+    }
+
+    /* Actions Layout Blocks */
+    .action-row {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 1.25rem;
+    }
+    @media (min-width: 576px) { .action-row { flex-direction: row; gap: 1.5rem; } }
+
+    .btn-action {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.875rem 2.25rem;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        border-radius: 50px;
+        text-decoration: none;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        width: 100%;
+    }
+    @media (min-width: 576px) { .btn-action { width: auto; } }
+
+    .btn-filled-gold {
+        background-color: #d4af37;
+        color: #000000;
+        border: 1px solid #d4af37;
+    }
+    .btn-filled-gold:hover {
+        background-color: #ffffff;
+        border-color: #ffffff;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(212, 175, 55, 0.25);
+    }
+    .btn-outlined-blank {
+        background-color: transparent;
+        color: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    .btn-outlined-blank:hover {
+        border-color: #ffffff;
+        background-color: rgba(255, 255, 255, 0.08);
+        transform: translateY(-3px);
+    }
+</style>
+
+<!-- Swiper JS (CDN) loaded directly before closing block -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+    let slideIndex = 0;
+    let carouselTimer;
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dots = document.querySelectorAll('.slider-dot');
+
+    function showSlides() {
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+        
+        slideIndex++;
+        if (slideIndex > slides.length) { slideIndex = 1; }
+        
+        slides[slideIndex - 1].classList.add('active');
+        dots[slideIndex - 1].classList.add('active');
+        
+        resetTimer();
+    }
+
+    function switchSlide(index) {
+        slideIndex = index;
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+        
+        slides[index].classList.add('active');
+        dots[index].classList.add('active');
+        
+        resetTimer();
+    }
+
+    function resetTimer() {
+        clearTimeout(carouselTimer);
+        carouselTimer = setTimeout(showSlides, 6000);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        resetTimer();
+
+        // Initialize Swiper for The Vibe segment
+        const vibeSwiper = new Swiper('.vibeSwiper', {
+            slidesPerView: 2,
+            spaceBetween: 20,
+            loop: true,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.vibe-swiper-pagination',
+                clickable: true,
+                dynamicBullets: true,
+            },
+            navigation: {
+                nextEl: '.vibe-nav-next',
+                prevEl: '.vibe-nav-prev',
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
+                },
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 24,
+                }
+            }
+        });
+    });
+</script> 
+{% endblock %}

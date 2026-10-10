@@ -1,0 +1,283 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sashka Matka | Premium Tea Experience</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    
+    <link rel="stylesheet" href="{% static 'tea_shop/css/style.css' %}">
+    <style>
+        .navbar-thin {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            background: rgba(8, 8, 8, 0.96);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+            transition: .4s ease;
+        }
+
+        .navbar-scrolled {
+            background: #000000;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, .8);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .navbar-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0 1.5rem;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-decoration: none;
+        }
+
+        .navbar-logo img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .brand-title {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.15rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #f3f4f6;
+        }
+
+        .nav-menu-desktop {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        .nav-link {
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: #b0b0b0;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #d4af37;
+        }
+
+        .nav-cta-btn {
+            padding: 0.65rem 1.5rem;
+            background: linear-gradient(135deg, #d4af37, #f0bf6b);
+            color: #000;
+            font-weight: 600;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-cta-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .mobile-menu-btn span {
+            width: 24px;
+            height: 2px;
+            background: #d4af37;
+            transition: 0.3s;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.98);
+            padding: 2rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu-desktop, .nav-cta-btn { display: none; }
+            .mobile-menu-btn { display: flex; }
+            .mobile-menu.active { display: block; }
+        }
+
+        .premium-footer {
+            margin-top: 100px;
+            background: #070707;
+            border-top: 1px solid rgba(212, 175, 55, 0.15);
+            padding: 70px 0 25px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 50px;
+        }
+
+        @media(max-width: 992px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+        @media(max-width: 768px) { .footer-grid { grid-template-columns: 1fr; text-align: center; } }
+
+        .footer-column h4 {
+            color: #fff;
+            margin-bottom: 25px;
+            font-size: 18px;
+            position: relative;
+        }
+
+        .footer-column ul { list-style: none; }
+        .footer-column ul li { margin-bottom: 12px; }
+        .footer-column ul li a { color: #9ca3af; text-decoration: none; transition: .3s; }
+        .footer-column ul li a:hover { color: #d4af37; padding-left: 6px; }
+
+        .footer-bottom {
+            margin-top: 50px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        @media(max-width: 768px) { .footer-bottom { flex-direction: column; gap: 15px; } }
+    </style>
+</head>
+<body class="text-gray-300">
+
+    <nav class="navbar-thin" id="navbar">
+        <div class="navbar-container">
+            <a href="{% url 'home' %}" class="navbar-logo">
+                <img src="{% static 'tea_shop/images/SASHKA_MATKA_LOGO_only.png' %}" alt="Sashka Matka Logo">
+                <span class="brand-text">
+                    <span class="brand-title">Sashka Matka</span>
+                </span>
+            </a>
+            
+            <div class="nav-menu-desktop">
+                <a href="{% url 'home' %}" class="nav-link active">Home</a>
+                <a href="{% url 'about' %}" class="nav-link">About</a>
+                <a href="{% url 'tea_collections' %}" class="nav-link">Collections</a>
+                <a href="{% url 'experience' %}" class="nav-link">Experience</a>
+                <a href="{% url 'franchise' %}" class="nav-link">Franchise</a>
+                <a href="{% url 'contact' %}" class="nav-link">Contact</a>
+            </div>
+            
+            <a href="{% url 'contact' %}" class="nav-cta-btn">Order Now</a>
+            
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        
+        <div class="mobile-menu" id="mobile-menu">
+            <div class="flex flex-col gap-4">
+                <a href="{% url 'home' %}" class="nav-link">Home</a>
+                <a href="{% url 'about' %}" class="nav-link">About</a>
+                <a href="{% url 'tea_collections' %}" class="nav-link">Collections</a>
+                <a href="{% url 'experience' %}" class="nav-link">Experience</a>
+                <a href="{% url 'franchise' %}" class="nav-link">Franchise</a>
+                <a href="{% url 'contact' %}" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="premium-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3 class="font-playfair text-2xl text-white mb-4">SASHKA <span class="text-d4af37">MATKA</span></h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Experience the rich aroma, authentic flavors, and timeless traditions of premium tea culture reinvented for today's generation.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Explore</h4>
+                    <ul>
+                        <li><a href="{% url 'home' %}">Home Dashboard</a></li>
+                        <li><a href="{% url 'about' %}">Our History</a></li>
+                        <li><a href="{% url 'tea_collections' %}">Signature Catalog</a></li>
+                        <li><a href="{% url 'experience' %}">The Vibe Setup</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Partnership</h4>
+                    <ul>
+                        <li><a href="{% url 'franchise' %}">Franchise Program</a></li>
+                        <li><a href="{% url 'contact' %}">Corporate Inquiry</a></li>
+                        <li><a href="#">Privacy Framework</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>The Flagship</h4>
+                    <p class="text-sm text-gray-400">Pipeline Road, Palarivattom,<br>Ernakulam, Kerala</p>
+                    <p class="text-d4af37 text-sm font-semibold mt-2">info@sashkamatka.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="text-xs tracking-widest text-d4af37 font-bold">NOT JUST TEA. IT'S A VIBE.</p>
+                <p class="text-xs text-gray-600">&copy; 2026 Sashka Matka. All Rights Framework Vectors Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+ <script>
+    // Navbar background backdrop color scroll trigger transformation 
+    window.addEventListener('scroll', () => { 
+        const navbar = document.getElementById('navbar'); 
+        if (window.scrollY > 50) { 
+            navbar.classList.add('navbar-scrolled'); 
+        } else { 
+            navbar.classList.remove('navbar-scrolled'); 
+        } 
+    }); 
+
+    // Mobile navigation drop menu panel toggle activation controller
+    const menuBtn = document.getElementById('mobile-menu-btn'); 
+    const mobileMenu = document.getElementById('mobile-menu'); 
+    
+    if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', () => { 
+            mobileMenu.classList.toggle('active'); 
+        }); 
+    }
+</script>
+</body>
+</html>

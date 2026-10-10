@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block breadcrumb %}Contact{% endblock %}
+
+{% block content %}
+
+<section class="container mx-auto px-4 py-20">
+
+    <!-- Heading -->
+    <div class="text-center mb-16">
+        <p class="text-d4af37 text-sm uppercase tracking-[0.3em] mb-3">
+            CONTACT US
+        </p>
+
+        <h2 class="font-playfair text-4xl md:text-5xl font-bold text-white mb-4">
+            Get In Touch
+        </h2>
+
+        <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+            We'd love to hear from you. Send us a message and we'll get back to you shortly.
+        </p>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center justify-items-center mb-16">
+
+        <!-- Left Column: Contact Cards -->
+        <div class="lg:col-span-5 w-full max-w-sm flex flex-col gap-4">
+            
+            <div class="contact-info-card">
+                <div class="contact-icon">📍</div>
+                <h4>Address</h4>
+                <p>Pipeline Road, Opposite Kairali Super, Palarivattom, Ernakulam, Kerala - 682025</p>
+            </div>
+
+            <div class="contact-info-card">
+                <div class="contact-icon">⏰</div>
+                <h4>Opening hours</h4>
+                <p>Sun - Sat : 12 PM - 11.30 PM</p>
+            </div>
+
+            <div class="contact-info-card">
+                <div class="contact-icon">📞</div>
+                <h4>Phone</h4>
+                <p>+91 807 524 89 28</p>
+            </div>
+
+        </div>
+
+        <!-- Right Column: Square Contact Form -->
+        <div class="lg:col-span-7 w-full flex justify-center">
+            <form class="contact-form-modern">
+
+                <div class="form-group">
+                    <label class="contact-label">Name</label>
+                    <input
+                        type="text"
+                        class="contact-input"
+                        placeholder="Enter your name"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label class="contact-label">Email</label>
+                    <input
+                        type="email"
+                        class="contact-input"
+                        placeholder="Enter your email"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label class="contact-label">Message</label>
+                    <textarea
+                        class="contact-textarea"
+                        placeholder="Write your message here..."
+                        required></textarea>
+                </div>
+
+                <button type="submit" class="btn-gold w-full">
+                    Send Message
+                </button>
+
+            </form>
+        </div>
+
+    </div>
+
+    <!-- Google Map Section -->
+    <div class="max-w-5xl mx-auto">
+        <div class="map-container">
+            <iframe 
+                src="https://maps.google.com/maps?q=Pipeline%20Road,%20Opposite%20Kairali%20Super,%20Palarivattom,%20Ernakulam,%20Kerala%20-%20682025&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+                width="100%" 
+                height="450" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}
